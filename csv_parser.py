@@ -14,3 +14,5 @@ with open("domains.csv", "r") as f:
   print(domain_list)
     
   print(f"Total domains to process: {len(domain_list)}")
+  for item in domain_list:
+     print(item)

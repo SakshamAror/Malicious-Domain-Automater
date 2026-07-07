@@ -11,3 +11,5 @@ with open("alternate.csv", "r") as f:
   print(domain_list)
     
   print(f"Total items to process: {len(domain_list)}")
+  for item in domain_list:
+     print(item)
