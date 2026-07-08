@@ -38,11 +38,11 @@ There are a few settings you can change to modify the execution. These settings 
 You can modify the time it pauses for before going to the next tab by changing the pause_time variable
 
 ```py
-pause_time = 1
+pause_time = 5
 ```
 
 #### timeout
-timeout controls how long the task runs before it exits and asks you to decide whether to try again or quit. At this point, you may check your browser to investigate whether the site is down or something else may be causing the issue. If you set the timeout to be too low, normal network noise may cause this too trigger very often, requiring a lot of human intervention.
+When the task encounters an issue and takes too long, timeout controls how long the task runs before it exits and asks you to decide whether to try again or quit. At this point, you may check your browser to investigate whether the site is down or if something else is causing the issue. If you set the timeout to be too low, normal network noise may cause this to trigger very often, prematurely stopping the task.
 
 ```py
 timeout = 10
@@ -99,12 +99,12 @@ Create virtual environment
 Activate virtual environment
 
 ```zsh
-source .venv/bin/activate
+>>> source .venv/bin/activate
 ```
 
 Download playwright 
 ```zsh
-pip install playwright
+>>> pip install playwright
 ```
 
 ### Setup browser configuration
@@ -143,4 +143,4 @@ google.com
 To create this subjects.txt, there is a helper script that parses a csv file.
 
 #### CSV/Excel Parser:
-The csv_parser.py script parses a given csv file for subjects from a given column. If you have an excel file, import/download it as a .csv file and input that to the script. The script will save the subjects in subjects.txt.
+The csv_parser.py script parses a given csv file for subjects from a given column. If you have an excel file, import/download it as a .csv file and input that to the script. The script will save the subjects as subjects.txt.
