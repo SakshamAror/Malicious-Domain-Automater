@@ -16,12 +16,15 @@ Launching with default viewport ...
 --- Safe Subject: amazon.com
 Evaluation: No security vendors flagged this IP address as malicious
 Rating: 0/91
+
 -------- Perhaps Suspicious Subject: yahoo.com
 Evaluation: At least 10 detected files embedding this domain
 Rating: 0/91
+
 -------- Perhaps Suspicious Subject: google.com
 Evaluation: At least 8 detected files embedding this domain
 Rating: 0/91
+
 (Screenshots saved in /screenshots)
 Suspicious Subjects: 0
 []
