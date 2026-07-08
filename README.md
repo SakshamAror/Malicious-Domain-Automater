@@ -1,9 +1,7 @@
 ## 🌟 Highlights
 
 - This script makes it easier for you to check subjects for malicious intent through [VirusTotal](https://www.virustotal.com)
-- It opens and closes tabs for you automatically so you can focus on analyzing the subjects rather than typing them in
-- Suports parallel execution for speed
-- It is a tool for your task, not a web scraping replacement
+- It opens and closes tabs for you automatically so you can focus on analyzing the subjects
 - Scans 100 subjects in around 90 seconds (depends on your settings)
 
 
