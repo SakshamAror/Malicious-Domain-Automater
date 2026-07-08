@@ -1,11 +1,11 @@
-## 🌟 Highlights
+## Highlights
 
 - This script makes it easier for you to check subjects for malicious intent through [VirusTotal](https://www.virustotal.com)
 - It opens and closes tabs for you automatically so you can focus on analyzing the subjects
 - Scans 100 subjects in around 90 seconds (depends on your settings)
 
 
-## 🚀 Usage
+## Usage
 Run this command with a subjects.txt which should be a txt file of your subjects, one per line.
 
 ```py
@@ -85,7 +85,7 @@ exec_settings = [screen_height, screen_width, 0, 0]
 ```
 
 
-## ⬇️ Installation & Setup
+## Installation & Setup
 
 ### Download playwright
 To run this script you either need to globally install the [playwright](https://playwright.dev/python/) python package or create a virtual environment to download the playwright package in. If you decide to download it globally, skip the first 2 steps:
@@ -128,7 +128,7 @@ playwright install --with-deps chromium
 ```
 
 
-## 💭 Subjects.txt and helper script
+## Subjects.txt and helper script
 
 Your subjects.txt should have one subject per line without any extra characters (trailling spaces will be automatically removed). It should look something like this:
 
