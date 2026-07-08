@@ -19,7 +19,7 @@ maybesus_text = "-------- Perhaps Suspicious Subject: "
 notsus_text = "--- Safe Subject: "
 
 # in seconds
-pause_time = 1
+pause_time = 5
 timeout = 10
 
 no_parallel = 5
@@ -108,6 +108,7 @@ def main():
         else :
             context = browser.new_context()
 
+        global no_parallel
         if (no_parallel < 1):
             no_parallel = 1
         pages = {}
@@ -119,6 +120,10 @@ def main():
 
             j = 0
             for sub in subject_list[i*no_parallel:(i+1)*no_parallel]:
+                global pause_time
+                if (pause_time < 0.25):
+                    pause_time = 0.25
+                time.sleep(random.random()*(pause_time/2) + pause_time/2)
                 page = open_pages[j]
                 page.set_default_timeout(timeout*1000)
                 page.goto("https://www.virustotal.com/gui/search?query=" + sub, wait_until="commit")
@@ -127,9 +132,6 @@ def main():
 
             for sub in subject_list[i*no_parallel:(i+1)*no_parallel]:
                 # Wait for some time to ensure everything has been cleaned up properly
-                if (pause_time < 0.5):
-                    pause_time = 0.5
-                time.sleep(random.random()*(pause_time/2) + pause_time/2)
 
                 eval_locator = pages[sub].locator("div > div.card-header.hstack.flex-wrap.justify-content-between.gap-2 "
                                                     "> div.hstack.gap-2.fw-bold[class*='text-']")
@@ -184,6 +186,8 @@ def main():
                 log.write(f"Evaluation: {text}\n")
                 print(f"Rating: {rating}/91")
                 log.write(f"Rating: {rating}/91\n")
+                print()
+                log.write('\n')
 
         context.close()
         browser.close()

@@ -4,6 +4,7 @@
 - It opens and closes tabs for you automatically so you can focus on analyzing the subjects rather than typing them in
 - Suports parallel execution for speed
 - It is a tool for your task, not a web scraping replacement
+- Scans 100 subjects in around 90 seconds (depends on your settings)
 
 
 ## 🚀 Usage
