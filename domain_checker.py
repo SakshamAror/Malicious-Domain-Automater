@@ -18,7 +18,10 @@ sus_text = "------------------ Suspicious Subject: "
 maybesus_text = "-------- Perhaps Suspicious Subject: "
 notsus_text = "--- Safe Subject: "
 
-timeout = 10 # In seconds
+# in seconds
+pause_time = 1
+timeout = 10
+
 no_parallel = 5
 
 headless_mode = False
@@ -60,7 +63,7 @@ def cla(): # command line arguments
 
 def main():
     start_time = time.perf_counter()
-    log = open("log.txt", "w")
+    log = open("logs.txt", "w")
 
     with sync_playwright() as p:
 
@@ -105,6 +108,8 @@ def main():
         else :
             context = browser.new_context()
 
+        if (no_parallel < 1):
+            no_parallel = 1
         pages = {}
         open_pages = [None] * no_parallel
         for i in range(no_parallel):
@@ -122,7 +127,9 @@ def main():
 
             for sub in subject_list[i*no_parallel:(i+1)*no_parallel]:
                 # Wait for some time to ensure everything has been cleaned up properly
-                time.sleep(random.random()*1.0)
+                if (pause_time < 0.5):
+                    pause_time = 0.5
+                time.sleep(random.random()*(pause_time/2) + pause_time/2)
 
                 eval_locator = pages[sub].locator("div > div.card-header.hstack.flex-wrap.justify-content-between.gap-2 "
                                                     "> div.hstack.gap-2.fw-bold[class*='text-']")

@@ -28,6 +28,60 @@ Suspicious Subjects: 0
 []
 ```
 
+It opens tabs for you in headed mode so you can oversee the operation and look at the subject evaluations in real time. It waits for a short period of time (so you can glance at the reports), then pulls the subject data shown on virustotal and outputs it in your terminal.  It also saves screenshots of malicious subjects in /screenshots and saves a logs.txt with the ratings and evaluations of all subjects listed.
+
+There are a few settings you can change to modify the execution. These settings are found at the top of **domain_checker.py**:
+
+#### pause_time
+You can modify the time it pauses for before going to the next tab by changing the pause_time variable
+
+```py
+pause_time = 1
+```
+
+#### timeout
+timeout controls how long the task runs before it exits and asks you to decide whether to try again or quit. At this point, you may check your browser to investigate whether the site is down or something else may be causing the issue. If you set the timeout to be too low, normal network noise may cause this too trigger very often, requiring a lot of human intervention.
+
+```py
+timeout = 10
+```
+
+#### no_parallel
+This variable modifies how many tabs open at once in the browser for faster parallel execution
+
+```py
+no_parallel = 5
+```
+
+#### headless_mode
+If headless_mode is set to True, the tabs are run in an headless shell where you can't see the tabs. It is highly recommended to not turn it on because you won't be able to debug when something goes wrong.
+
+```py
+headless_mode = False
+```
+
+#### default_settings
+This sets the viewport and window size of the opened browser to default settings
+
+```py
+default_settings = True
+```
+
+#### exec_settings
+Here you can configure the exact dimensions of the viewport and window for your opened browser. However, first you need to set the screen width and height with your screen's values:
+
+```py
+screen_height = 1000
+screen_width = 1500
+```
+
+Then, you may set the settings for your browser dimension. The first item is the height of the browser, the second is the width, and the last two are the x and y positions of the bottom left point of the browser respectively.
+
+```py
+# If any of the positions are a negative number, load in fullscreen
+exec_settings = [screen_height, screen_width, 0, 0]
+```
+
 
 ## ⬇️ Installation & Setup
 
@@ -72,9 +126,9 @@ playwright install --with-deps chromium
 ```
 
 
-## 💭 Helper files
+## 💭 Subjects.txt and helper script
 
-To produce your subjects.txt which should look something like this:
+Your subjects.txt should have one subject per line without any extra characters (trailling spaces will be automatically removed). It should look something like this:
 
 ```txt
 yahoo.com
@@ -84,7 +138,7 @@ google.com
 
 **Note:** You don't need to name it subjects.txt but it must be a .txt file that you pass in as an input to domain_checker.py.
 
-To create this subjects.txt, there are some helper scripts that parse some basic formats to extract subjects:
+To create this subjects.txt, there is a helper script that parses a csv file.
 
 #### CSV/Excel Parser:
-The csv_parser.py script 
+The csv_parser.py script parses a given csv file for subjects from a given column. If you have an excel file, import/download it as a .csv file and input that to the script. The script will save the subjects in subjects.txt.
