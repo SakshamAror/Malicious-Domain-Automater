@@ -4,9 +4,11 @@ import os
 import time
 import random
 
-###################################################################
+#######################    SETTINGS    ############################
 
-mac_chrome_path = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+# If chromium path doesn't resolve to an executable, it will automatically run 
+# playwright's browser binaries
+chromium_path = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 subject_list = ["amazon.com", "yahoo.com", "google.com"]
 
@@ -16,16 +18,16 @@ sus_text = "------------------ Suspicious Subject: "
 maybesus_text = "-------- Perhaps Suspicious Subject: "
 notsus_text = "--- Safe Subject: "
 
-timeout = 5 # In seconds
+timeout = 10 # In seconds
 no_parallel = 5
 
 headless_mode = False
 # For window sizing in headful mode
-default_settings = True ## Instead just run with default viewport
+default_settings = True # Instead just run with default viewport
 screen_height = 982
 screen_width = 1512
 # If any of the positions are a negative number, load in fullscreen
-exec_settings = [screen_height, screen_width, -1, 0]
+exec_settings = [screen_height, screen_width, 0, 0]
 exec_height, exec_width, exec_xpos, exec_ypos = exec_settings
 
 ####################################################################
@@ -69,30 +71,32 @@ def main():
             if setting < 0:
                 fullscreen = True
 
+        launch_options = {
+            "headless": headless_mode,
+        }
+
+        if os.path.isfile(chromium_path):
+            launch_options["executable_path"] = chromium_path
+
         if default_settings:
             print("Launching with default viewport ...")
-            browser = p.chromium.launch(
-                executable_path=mac_chrome_path, 
-                headless=headless_mode,
-            )
         elif fullscreen:
             print("Launching in fullscreen ...")
-            browser = p.chromium.launch(
-                executable_path=mac_chrome_path, 
-                headless=headless_mode,
-                args=["--start-fullscreen",
-                    f"--window-position={0},{0}"]
-            )
+            launch_options["args"] = [
+                "--start-fullscreen",
+                f"--window-position={0},{0}"]
         else:
             print("Launching ...")
-            browser = p.chromium.launch(
-                executable_path=mac_chrome_path, 
-                headless=headless_mode,
-                args=[
+            launch_options["args"] = [
                     f"--window-size={exec_width},{exec_height}",
-                    f"--window-position={exec_xpos},{exec_ypos}"
-                ]
-            )
+                    f"--window-position={exec_xpos},{exec_ypos}"]
+
+        try:
+            browser = p.chromium.launch(**launch_options)
+        except Exception as e:
+            print("Launching with playwright installed chromium browser")
+            launch_options.pop("executable_path", None)
+            browser = p.chromium.launch(**launch_options)
 
         if not default_settings:
             context = browser.new_context(
